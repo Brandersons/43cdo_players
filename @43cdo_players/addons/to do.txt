@@ -1,0 +1,2 @@
+add correct requiredAddons
+make better names and descriptions for items (questionable)

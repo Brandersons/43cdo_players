@@ -1,0 +1,2 @@
+fixed bug where incorrect loadout name would be displayed if the player saved their loadout while they had another selected in the menu, it will now display the name of the loadout which the player has loaded
+added tooltips to item list (some items have impractically long names for this ui)

@@ -1,0 +1,2 @@
+saving a loadout without having previously loaded one while there is a loadout selected leads to a blank notification
+some tooltip descriptions have html tags visible
