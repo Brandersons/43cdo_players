@@ -13,10 +13,10 @@ class CfgPatches
         };
         // any weapons, helmets or vests equipped to any of the soldier classes
         weapons[] = {
-            "SCM_Virtus_Assaulter_1_Belt",
-            "SCM_Fast_B_2",
             "43cdo_weapons_l403a1",
-            "rhsusf_weap_glock17g4"
+            "rhsusf_weap_glock17g4",
+            "SCM_Virtus_Assaulter_1_Belt",
+            "SCM_Fast_B_2"
         };
         requiredVersion = 0.1;
         requiredAddons[] = {
@@ -25,7 +25,7 @@ class CfgPatches
     };
 };
 
-// this is the custom faction where the soldiers are placed inside
+// this is the custom faction which the soldiers are placed inside
 class CfgFactionClasses
 {
     class 43cdo_faction
@@ -131,9 +131,8 @@ class IdentityTypes
 
 class CfgVehicles
 {
-    // this setting up some prop weapons we can use for decoration
+    // this is setting up some prop weapons we can use for decoration
     class Weapon_arifle_SPAR_01_blk_F;
-    // this is the base class for all prop weapons
     class 43cdo_weapons_prop_base : Weapon_arifle_SPAR_01_blk_F
     {
         scope = 2;
@@ -143,43 +142,36 @@ class CfgVehicles
     class 43cdo_weapons_l403a1_prop : 43cdo_weapons_prop_base
     {
         displayName = "L403A1";
-        scope = 2;
         model = "\Scotts_L403A1\Models\KS1_tan.p3d";
     };
     class 43cdo_weapons_l403a1_prop_magazine : 43cdo_weapons_prop_base
     {
         displayname = "EMAG 30rnd 556x45 M855A1 EPR";
-        scope = 2;
         model = "Scotts_EMAG\Models\EMAG_Magpul.p3d";
     };
     class 43cdo_weapons_l403a1_prop_scope : 43cdo_weapons_prop_base
     {
         displayName = "[SCM] Vortex Eleanor";
-        scope = 2;
         model = "Scotts_Attachments\Models\Eleanor.p3d";
     };
     class 43cdo_weapons_l403a1_prop_muzzle : 43cdo_weapons_prop_base
     {
         displayName = "[SCM] KAC 556 PRT";
-        scope = 2;
         model = "Scotts_Attachments\Models\PRT_Cover.p3d";
     };
     class 43cdo_weapons_l129a2_prop : 43cdo_weapons_prop_base
     {
         displayName = "L129A2 6.5 Creedmoor";
-        scope = 2;
         model = "UKSF_LMT\L129A2.p3d";
     };
     class 43cdo_weapons_l129a2_prop_magazine : 43cdo_weapons_prop_base
     {
         displayName = "20Rnd 6.5Creedmoor Sierra Matchking ";
-        scope = 2;
         model = "43cdo_weapons\data\EMAG_Magpul.p3d";
     };
     class 43cdo_weapons_l7a2_prop : 43cdo_weapons_prop_base
     {
         displayName = "L7A2";
-        scope = 2;
         model = "UK3CB_BAF_Weapons\addons\UK3CB_BAF_Weapons_L7\UK3CB_L7A2.p3d";
     };
     
@@ -229,9 +221,12 @@ class CfgVehicles
         respawnMagazines[] = {};
     };
 
-        class 43cdo_soldier_example : 43cdo_soldier_base
+    // here is an example soldier class, copy and paste this and change the values to create a new soldier
+    // give your class a unique name using the format 43cdo_soldier_<name>
+    // you will also have to update 43cdo_qm_menu_dialog.hpp to add this loadout to the qm memnu
+    class 43cdo_soldier_example : 43cdo_soldier_base
     {
-        // Set this to 2 to make it show in 3den, as this is in the live mod it'll be set to 1 to hide it in 3den
+        // Set this to 2 to make it show in 3den, as this example is in the live mod it'll be set to 1 to hide it in 3den
         scope = 1;
         // the name of the soldier in 3den and in game
         displayName = "[43CDO] Example Soldier";
@@ -247,28 +242,28 @@ class CfgVehicles
         engineer = 0;
         // the uniform the soldier will spawn with
         uniform = "SCM_G4_T_uniform";
-        // the helmet the soldier will spawn with
-        helmet = "SCM_Fast_B_2";
         // the backpack the soldier will spawn with
         backpack = "SCM_AVS_1000_Radio";
-        // the weapons the soldier will spawn with, this has to include "Put" and "Throw" at a minimum for
+        // the weapons the soldier will spawn with, this has to include "Put" and "Throw" at a minimum and should ideally include "Binocular" or some other binoculars classname
         // the primary weapon must show up first
         // the secondary weapon must show up second
         // yes this is wrong on my configs I am going to change it later
         weapons[] = {
-            "Put",
-            "Throw",
-            "Rangefinder",
             "43cdo_weapons_l403a1",
-            "rhsusf_weap_glock17g4"            
-        };
-        respawnWeapons[] = {
+            "rhsusf_weap_glock17g4",
             "Put",
             "Throw",
-            "Rangefinder",
-            "rhsusf_weap_glock17g4",
-            "43cdo_weapons_l403a1"
+            "Rangefinder"
         };
+        // this should be the same as weapons[]
+        respawnWeapons[] = {
+            "43cdo_weapons_l403a1",
+            "rhsusf_weap_glock17g4",
+            "Put",
+            "Throw",
+            "Rangefinder"
+        };
+        // the items which will be added and equipped, does not include weapons, uniform or backpack
         linkedItems[] = {
             "SCM_Virtus_Assaulter_1_Belt",
             "SCM_Fast_B_2",
@@ -277,6 +272,7 @@ class CfgVehicles
             "TFAR_microdagr",
             "TFAR_anprc152"
         };
+        // this should be the same as linkedItems[]
         respawnLinkedItems[] = {
             "SCM_Virtus_Assaulter_1_Belt",
             "SCM_Fast_B_2",
@@ -285,7 +281,8 @@ class CfgVehicles
             "TFAR_microdagr",
             "TFAR_anprc152"
         };
-
+        // this is where you set up what items get added to the various parts of the loadout
+        // this is very non standard but is required for the qm menu to load the items into the correct inventory locations
         class loadoutitems
         {
             // if you want a magazine to be loaded by default, you need to add it here
@@ -294,8 +291,7 @@ class CfgVehicles
             // all the items to be added to the uniform
             // this must be a comma seperated list whith each item showing up as many times as you want it to be in the loadout
             // you cannot use a c++ macro this this up unfortunately
-            itemsuniform[] =
-            {
+            itemsuniform[] = {
                 "ACE_CableTie", "ACE_CableTie", "ACE_CableTie", "ACE_CableTie",
                 "ACE_Canteen",
                 "ACE_Flashlight_XL50",
@@ -344,13 +340,14 @@ class CfgVehicles
                 "ACE_quikclot", "ACE_quikclot", "ACE_quikclot", "ACE_quikclot"
             };
         };
-
+        // this is what handles putting the items into the loadout
         class EventHandlers
         {
             init = "\
                 private _unit = _this select 0; \
                 { _unit removeItemFromUniform _x; } forEach uniformItems _unit; \
                 { _unit removeItemFromVest _x; } forEach vestItems _unit; \
+                { _unit removeItemFromBackpack _x; } forEach backpackItems _unit; \
                 { _unit addItemToUniform _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsuniform'); \
                 { _unit addItemToVest _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsvest'); \
                 { _unit addItemToBackpack _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsbackpack'); \
@@ -367,20 +364,28 @@ class CfgVehicles
         // QM will be 0 threat to the enemy
         threat[] = {0, 0, 0};
         value = 100000;
-        // below is what makes the loadout menu show as a scroll option on the QM
+        class loadoutitems
+        {
+            loadedmagazineprimary[] = {};
+            loadedmagazinesecondary[] = {};
+            itemsuniform[] ={};
+            itemsvest[] = {};
+            itemsbackpack[] = {};
+        };
+        // this is what makes the qm menu show as a scroll option on the qm
         class UserActions
         {
             class 43cdo_qm_menu_open
             {
                 // the tooltip
-                displayName = "<t color='#4CAF50'>Open Loadout Menu</t>";
+                displayName = "<t size='1.2'><img image='\43cdo_players\data\43cdo_logotemp.paa' size='1'/> Open QM Menu</t>";
                 // the icon which shows on the QM
-                displayNameDefault = "<img image='\a3amissions_f_oldman\data\img\holdactions\holdAction_box_ca.paa'/>";
+                displayNameDefault = "";
                 // if multiple actions are available, this will determine the order (highest first)
                 priority = 100;
                 // the distance from the QM where the menu will show (in meters)
                 radius = 5;
-                // this is the memort point for the center of the range check, it's complicated so just leave this as is
+                // this is the memory point for the center of the range check, it's complicated so just leave this as is
                 position = "pelvis";
                 // this allows the displayNameDefault to show
                 showWindow = 1;
@@ -393,6 +398,18 @@ class CfgVehicles
                 // this opens the menu
                 statement = "createDialog '43cdo_qm_menu_dialog';";
             };
+        };
+        class EventHandlers
+        {
+            init = "\
+                private _unit = _this select 0; \
+                { _unit removeItemFromUniform _x; } forEach uniformItems _unit; \
+                { _unit removeItemFromVest _x; } forEach vestItems _unit; \
+                { _unit removeItemFromBackpack _x; } forEach backpackItems _unit; \
+                { _unit addItemToUniform _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsuniform'); \
+                { _unit addItemToVest _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsvest'); \
+                { _unit addItemToBackpack _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsbackpack'); \
+            ";
         };
     };
     class 43cdo_soldier_31ic : 43cdo_soldier_base
@@ -407,7 +424,6 @@ class CfgVehicles
         engineer = 0;
 
         uniform = "SCM_G4_T_uniform";
-        helmet = "SCM_Fast_B_2";
         backpack = "SCM_AVS_1000_Radio";
         weapons[] = {
             "Put",
@@ -444,8 +460,7 @@ class CfgVehicles
         {
             loadedmagazineprimary[] = {"Scotts_43Cdo_EMAG_Magpul_M855A1_EPR"};
             loadedmagazinesecondary[] = {"UK3CB_BAF_9_17Rnd"};
-            itemsuniform[] =
-            {
+            itemsuniform[] = {
                 "ACE_CableTie", "ACE_CableTie", "ACE_CableTie", "ACE_CableTie",
                 "ACE_Canteen",
                 "ACE_Flashlight_XL50",
@@ -495,6 +510,7 @@ class CfgVehicles
                 private _unit = _this select 0; \
                 { _unit removeItemFromUniform _x; } forEach uniformItems _unit; \
                 { _unit removeItemFromVest _x; } forEach vestItems _unit; \
+                { _unit removeItemFromBackpack _x; } forEach backpackItems _unit; \
                 { _unit addItemToUniform _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsuniform'); \
                 { _unit addItemToVest _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsvest'); \
                 { _unit addItemToBackpack _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsbackpack'); \
@@ -513,7 +529,6 @@ class CfgVehicles
         engineer = 0;
 
         uniform = "SCM_G4_T_uniform";
-        helmet = "SCM_Fast_B_2";
         backpack = "SCM_Trizip";
         weapons[] = {
             "Put",
@@ -550,8 +565,7 @@ class CfgVehicles
         {
             loadedmagazineprimary[] = {"Scotts_43Cdo_EMAG_Magpul_M855A1_EPR"};
             loadedmagazinesecondary[] = {"UK3CB_BAF_9_17Rnd"};
-            itemsuniform[] =
-            {
+            itemsuniform[] = {
                 "ACE_CableTie", "ACE_CableTie", "ACE_CableTie", "ACE_CableTie",
                 "ACE_Canteen",
                 "ACE_Flashlight_XL50",
@@ -610,6 +624,7 @@ class CfgVehicles
                 private _unit = _this select 0; \
                 { _unit removeItemFromUniform _x; } forEach uniformItems _unit; \
                 { _unit removeItemFromVest _x; } forEach vestItems _unit; \
+                { _unit removeItemFromBackpack _x; } forEach backpackItems _unit; \
                 { _unit addItemToUniform _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsuniform'); \
                 { _unit addItemToVest _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsvest'); \
                 { _unit addItemToBackpack _x; } forEach getArray (configFile >> 'CfgVehicles' >> typeOf _unit >> 'loadoutitems' >> 'itemsbackpack'); \

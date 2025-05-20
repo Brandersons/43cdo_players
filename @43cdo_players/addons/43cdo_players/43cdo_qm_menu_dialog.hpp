@@ -40,6 +40,7 @@ class RscMapControlEmpty;
 class RscCheckBox;
 class RscBackground;
 
+// I cannot remember what this does, I tried removing it and stuff broke so leave it alone
 class Default
 {
     idd = -1;
@@ -48,19 +49,25 @@ class Default
     duration = 0;
 };
 
+// this is how you add a new loadout to the QM menu
 class 43cdo_qm_loadoutfilters
 {
-    sections[] = {"1-2 HQ", "1-2 C/D", "3-1 HQ", "3-1 C/D", "3-1 E/F", "3-1 G/H", "3-1 I/J", "Misc"};
+    // this is where the text strings for the sections are stored, their order MUST match the filters below
+    sections[] = {"1-2 HQ", "1-2 C/D", "3-1 HQ", "3-1 C/D", "3-1 E/F", "3-1 G/H", "3-1 I/J", "Misc", "Test"};
     class filters
     {
+        // for each section, put the classnames of the soldiers that should be shown in that section
+        // the loadouts will show in the order which you place them in here
+        // you can add and remove sections by removing both their entry above and the filter below, just make sure the indexes of the filters match up
         class 43cdo_qm_loadoutfilter_12hq { classes[] = {""}; };
         class 43cdo_qm_loadoutfilter_12cd { classes[] = {""}; };
         class 43cdo_qm_loadoutfilter_31hq { classes[] = {""}; };
         class 43cdo_qm_loadoutfilter_31cd { classes[] = {"43cdo_soldier_31ic", "43cdo_soldier_medic"}; };
-        class 43cdo_qm_loadoutfilter_31ef { classes[] = {"43cdo_soldier_31ic", "43cdo_soldier_medic"}; };
+        class 43cdo_qm_loadoutfilter_31ef { classes[] = {"43cdo_soldier_medic", "43cdo_soldier_31ic"}; };
         class 43cdo_qm_loadoutfilter_31gh { classes[] = {"43cdo_soldier_31ic", "43cdo_soldier_medic"}; };
         class 43cdo_qm_loadoutfilter_31ij { classes[] = {"43cdo_soldier_31ic"}; };
         class 43cdo_qm_loadoutfilter_misc { classes[] = {"43cdo_soldier_31ic"}; };
+        class 43cdo_qm_loadoutfilter_test { classes[] = {"43cdo_soldier_31ic", "43cdo_soldier_medic", "43cdo_soldier_qm"}; };
     };
 };
 
